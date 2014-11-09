@@ -35,6 +35,10 @@ public class ElasticsearchBatchOperationsSync {
         operationsAsync.setReplicas(replicas, indices).actionGet();
     }
 
+    public int getReplicas(String index) {
+        return operationsAsync.getReplicas(index).actionGet();
+    }
+
     public void updateSettings(Map<String, String> settings, String... indices) {
         operationsAsync.updateSettings(settings, indices).actionGet();
     }

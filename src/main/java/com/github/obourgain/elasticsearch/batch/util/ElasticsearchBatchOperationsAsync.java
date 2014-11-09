@@ -51,6 +51,17 @@ public class ElasticsearchBatchOperationsAsync {
         return updateSettings(Collections.singletonMap("number_of_replicas", String.valueOf(replicas)), indices);
     }
 
+    public ActionFuture<Integer> getReplicas(final String index) {
+        AdapterActionFuture<Integer, GetSettingsResponse> future = new AdapterActionFuture<Integer, GetSettingsResponse>() {
+            @Override
+            protected Integer convert(GetSettingsResponse listenerResponse) {
+                return Integer.valueOf(listenerResponse.getSetting(index, "index.refresh_interval"));
+            }
+        };
+        client.admin().indices().getSettings(new GetSettingsRequest().indices(index), future);
+        return future;
+    }
+
     public ActionFuture<UpdateSettingsResponse> updateSettings(Map<String, String> settings, String... indices) {
         return client.admin().indices()
                 .updateSettings(Requests.updateSettingsRequest(indices)
@@ -62,5 +73,4 @@ public class ElasticsearchBatchOperationsAsync {
                 .removeAlias(fromIndex, alias)
                 .addAlias(alias, toIndex));
     }
-
 }
