@@ -6,7 +6,7 @@
 
     <groupId>com.github.obourgain</groupId>
     <artifactId>elasticsearch-batch</artifactId>
-    <version>0.1-SNAPSHOT</version>
+    <version>0.1</version>
 
     <name>Elasticsearch Batch</name>
     <description>Utility classes Elasticsearch</description>
@@ -42,6 +42,7 @@
         <slf4j.version>1.7.6</slf4j.version>
         <randomizedtesting.version>2.1.10</randomizedtesting.version>
 
+        <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
         <maven.compiler.version>2.4</maven.compiler.version>
     </properties>
 
