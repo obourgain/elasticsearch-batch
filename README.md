@@ -36,7 +36,7 @@ Note: both classes are thread-safe.
     </tr>
     <tr>
         <td>0.1</td>
-        <td>1.4.0</td>
+        <td>1.7.x</td>
     </tr>
 </table>
  
