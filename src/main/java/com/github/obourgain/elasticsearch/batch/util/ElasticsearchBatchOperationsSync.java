@@ -47,4 +47,8 @@ public class ElasticsearchBatchOperationsSync {
         operationsAsync.switchAlias(alias, fromIndex, toIndex).actionGet();
     }
 
+    public void putMapping(String mappingSource, String type, String... indices) {
+        operationsAsync.putMapping(mappingSource, type, indices).actionGet();
+    }
+
 }
