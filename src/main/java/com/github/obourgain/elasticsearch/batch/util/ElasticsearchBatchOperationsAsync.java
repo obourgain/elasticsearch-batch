@@ -26,12 +26,12 @@ public class ElasticsearchBatchOperationsAsync {
     }
 
     public ActionFuture<RefreshResponse> refresh(String... indices) {
-        logger.info("Refreshing {}", Arrays.asList(indices));
+        logger.trace("Refreshing {}", Arrays.asList(indices));
         return client.admin().indices().refresh(Requests.refreshRequest(indices));
     }
 
     public ActionFuture<UpdateSettingsResponse> disableRefresh(String... indices) {
-        logger.info("Disabling refresh on {}", Arrays.asList(indices));
+        logger.trace("Disabling refresh on {}", Arrays.asList(indices));
         return updateSettings(Collections.singletonMap("refresh_interval", "-1"), indices);
     }
 
@@ -47,17 +47,17 @@ public class ElasticsearchBatchOperationsAsync {
     }
 
     public ActionFuture<UpdateSettingsResponse> setRefreshInterval(String refreshInterval, String... indices) {
-        logger.info("Set refresh to {} on {}", refreshInterval, Arrays.asList(indices));
+        logger.trace("Set refresh to {} on {}", refreshInterval, Arrays.asList(indices));
         return updateSettings(Collections.singletonMap("refresh_interval", refreshInterval), indices);
     }
 
     public ActionFuture<UpdateSettingsResponse> disableReplicas(String... indices) {
-        logger.info("Disabling replicas on {}", Arrays.asList(indices));
+        logger.trace("Disabling replicas on {}", Arrays.asList(indices));
         return updateSettings(Collections.singletonMap("number_of_replicas", "0"), indices);
     }
 
     public ActionFuture<UpdateSettingsResponse> setReplicas(int replicas, String... indices) {
-        logger.info("Set replicas to {} on {}", replicas, Arrays.asList(indices));
+        logger.trace("Set replicas to {} on {}", replicas, Arrays.asList(indices));
         return updateSettings(Collections.singletonMap("number_of_replicas", String.valueOf(replicas)), indices);
     }
 
@@ -73,14 +73,14 @@ public class ElasticsearchBatchOperationsAsync {
     }
 
     public ActionFuture<UpdateSettingsResponse> updateSettings(Map<String, String> settings, String... indices) {
-        logger.info("Update settings with {} on {}", settings, Arrays.asList(indices));
+        logger.trace("Update settings with {} on {}", settings, Arrays.asList(indices));
         return client.admin().indices()
                 .updateSettings(Requests.updateSettingsRequest(indices)
                         .settings(settings));
     }
 
     public ActionFuture<IndicesAliasesResponse> switchAlias(String alias, String fromIndex, String toIndex) {
-        logger.info("Switch alias {} from {} to {}", alias, fromIndex, toIndex);
+        logger.trace("Switch alias {} from {} to {}", alias, fromIndex, toIndex);
         return client.admin().indices().aliases(Requests.indexAliasesRequest()
                 .removeAlias(fromIndex, alias)
                 .addAlias(alias, toIndex));
