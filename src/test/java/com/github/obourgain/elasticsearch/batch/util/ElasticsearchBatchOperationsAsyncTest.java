@@ -6,6 +6,7 @@ import java.util.concurrent.ExecutionException;
 import org.assertj.core.api.Assertions;
 import org.elasticsearch.action.admin.indices.alias.get.GetAliasesRequest;
 import org.elasticsearch.action.admin.indices.alias.get.GetAliasesResponse;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsRequest;
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsResponse;
 import org.elasticsearch.action.get.GetResponse;
@@ -33,6 +34,26 @@ public class ElasticsearchBatchOperationsAsyncTest extends ElasticsearchIntegrat
     public void setup() {
         createIndex(INDEX);
         operations = new ElasticsearchBatchOperationsAsync(client());
+    }
+
+    @Test
+    public void testPutMapping() {
+        String mapping = "" +
+                "{\n" +
+                "  \"the_mapping\" : {\n" +
+                "    \"properties\" : {\n" +
+                "      \"name\" : {\n" +
+                "        \"type\" : \"string\",\n" +
+                "        \"analyzer\" : \"standard\"\n" +
+                "        }\n" +
+                "      }\n" +
+                "    }\n" +
+                "  }\n" +
+                "}" +
+                "";
+        PutMappingResponse putMappingResponse = operations.putMapping(mapping, "the_mapping").actionGet();
+
+        Assertions.assertThat(putMappingResponse.isAcknowledged()).isTrue();
     }
 
     @Test

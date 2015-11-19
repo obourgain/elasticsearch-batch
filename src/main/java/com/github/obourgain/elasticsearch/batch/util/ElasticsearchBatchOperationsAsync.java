@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.Map;
 import org.elasticsearch.action.ActionFuture;
 import org.elasticsearch.action.admin.indices.alias.IndicesAliasesResponse;
+import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 import org.elasticsearch.action.admin.indices.refresh.RefreshResponse;
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsRequest;
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsResponse;
@@ -77,6 +78,14 @@ public class ElasticsearchBatchOperationsAsync {
         return client.admin().indices()
                 .updateSettings(Requests.updateSettingsRequest(indices)
                         .settings(settings));
+    }
+
+    public ActionFuture<PutMappingResponse> putMapping(String mappingSource, String type, String... indices) {
+        logger.trace("Put mapping with {} on {}", mappingSource, Arrays.asList(indices));
+        return client.admin().indices()
+                .putMapping(Requests.putMappingRequest(indices)
+                        .source(mappingSource)
+                        .type(type));
     }
 
     public ActionFuture<IndicesAliasesResponse> switchAlias(String alias, String fromIndex, String toIndex) {
