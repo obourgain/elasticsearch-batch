@@ -9,6 +9,7 @@ import org.elasticsearch.action.admin.indices.alias.get.GetAliasesResponse;
 import org.elasticsearch.action.admin.indices.mapping.put.PutMappingResponse;
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsRequest;
 import org.elasticsearch.action.admin.indices.settings.get.GetSettingsResponse;
+import org.elasticsearch.action.admin.indices.settings.put.UpdateSettingsResponse;
 import org.elasticsearch.action.get.GetResponse;
 import org.elasticsearch.action.index.IndexRequestBuilder;
 import org.elasticsearch.action.search.SearchResponse;
@@ -55,6 +56,18 @@ public class ElasticsearchBatchOperationsAsyncTest extends ElasticsearchIntegrat
         PutMappingResponse putMappingResponse = operations.putMapping(mapping, "the_mapping").actionGet();
 
         Assertions.assertThat(putMappingResponse.isAcknowledged()).isTrue();
+    }
+
+    @Test
+    public void testPutSettings() {
+        createIndex("the_index");
+        String settings = "" +
+                "{\n" +
+                "  \"number_of_replicas\": 1\n" +
+                "}" +
+                "";
+        UpdateSettingsResponse response = operations.putSettings(settings, "the_index").actionGet();
+        Assertions.assertThat(response.isAcknowledged()).isTrue();
     }
 
     @Test

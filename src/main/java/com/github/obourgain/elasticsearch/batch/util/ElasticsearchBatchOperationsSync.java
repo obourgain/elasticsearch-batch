@@ -51,4 +51,8 @@ public class ElasticsearchBatchOperationsSync {
         operationsAsync.putMapping(mappingSource, type, indices).actionGet();
     }
 
+    public void putSettings(String settingsSource, String index) {
+        operationsAsync.putSettings(settingsSource, index);
+    }
+
 }

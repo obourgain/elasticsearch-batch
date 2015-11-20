@@ -88,6 +88,13 @@ public class ElasticsearchBatchOperationsAsync {
                         .type(type));
     }
 
+    public ActionFuture<UpdateSettingsResponse> putSettings(String settingsSource, String index) {
+        logger.trace("Put settings with {} on {}", settingsSource, index);
+        return client.admin().indices()
+                .updateSettings(Requests.updateSettingsRequest(index)
+                        .settings(settingsSource));
+    }
+
     public ActionFuture<IndicesAliasesResponse> switchAlias(String alias, String fromIndex, String toIndex) {
         logger.trace("Switch alias {} from {} to {}", alias, fromIndex, toIndex);
         return client.admin().indices().aliases(Requests.indexAliasesRequest()
