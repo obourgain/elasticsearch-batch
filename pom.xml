@@ -6,7 +6,7 @@
 
     <groupId>com.github.obourgain</groupId>
     <artifactId>elasticsearch-batch</artifactId>
-    <version>0.1</version>
+    <version>0.2</version>
 
     <name>Elasticsearch Batch</name>
     <description>Utility classes Elasticsearch</description>
