@@ -1,6 +1,8 @@
 elasticsearch-batch
 ===================
 
+[![Build Status](https://travis-ci.org/obourgain/elasticsearch-batch.svg?branch=master)](https://travis-ci.org/obourgain/elasticsearch-batch)
+
 This project aims at providing a toolbox with most of the technical stuff that gets reimplemented each time a batch to index
 date in Elasticsearch is written.
 
